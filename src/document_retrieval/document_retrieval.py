@@ -4,12 +4,14 @@ from logging import Logger
 from edgar import set_identity, Company
 from edgar.entity import EntityFilings, EntityFiling
 
+from config.config import Settings
 from logger.logger import AppLogger
 
 
 class DocumentRetrieval:
-    def __init__(self):
-        set_identity("HenryRothenberg hsr205@aol.com")
+    def __init__(self, settings:Settings):
+        self._settings = settings
+        set_identity(user_identity=self._settings.edgar_identity_credentials)
         self._logger: Logger = AppLogger.get_logger(self.__class__.__name__)
 
     # TODO: Alter this method to output a list of documents not just a single filling
@@ -22,4 +24,5 @@ class DocumentRetrieval:
             return latest_10k.text()
 
         text_str: str = await asyncio.to_thread(_fetch)
+
         return text_str
