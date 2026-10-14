@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     embedding_model: str = Field(..., description="Sentence transformer embedding model for converting documents into embedded vectors")
     hugging_face_token: str = Field(..., description="Secret token leveraged for accessing Hugging Face resources")
-
+    qdrant_vector_store_client: str = Field(..., description="Local host URL for Qdrant client vector store")
     edgar_identity_credentials: str = Field(..., description="Credentials required for access the SEC EDGAR repository which house all financial documents (i.e. 10-k's, 8-k's, etc)")
 
     rag_system_chunk_size: int = Field(..., description="The maximum number of characters in each chunk")
